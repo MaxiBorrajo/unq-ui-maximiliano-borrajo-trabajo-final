@@ -47,7 +47,7 @@ export const useGame = () => {
     (letter: string) => {
       if (gameState.gameStatus !== "playing") return;
 
-      const upperLetter = letter.toUpperCase();
+      const upperLetter = letter.toLowerCase();
       if (gameState.currentAttempt.length < gameState.wordLength) {
         setGameState((prev) => ({
           ...prev,

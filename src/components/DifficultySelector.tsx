@@ -3,12 +3,12 @@ import type { Difficulty } from "../types/game";
 import { ApiService } from "../services/api";
 
 interface DifficultySelectorProps {
-  onDifficultySelect: (difficulty: Difficulty) => void;
+  startNewGame: (difficulty: Difficulty) => void;
   isLoading?: boolean;
 }
 
 export const DifficultySelector = ({
-  onDifficultySelect,
+  startNewGame,
   isLoading,
 }: DifficultySelectorProps) => {
   const [difficulties, setDifficulties] = useState<Difficulty[]>([]);
@@ -62,11 +62,18 @@ export const DifficultySelector = ({
     <div className="difficulty-selector">
       <h2 className="difficulty-title">Selecciona la Dificultad</h2>
 
+      {isLoading && (
+        <div className="loading-text">
+          <div className="loading-spinner"></div>
+          <span>Iniciando juego...</span>
+        </div>
+      )}
+
       <div className="difficulty-grid">
         {difficulties.map((difficulty) => (
           <button
             key={difficulty.id}
-            onClick={() => onDifficultySelect(difficulty)}
+            onClick={() => startNewGame(difficulty)}
             disabled={isLoading}
             className="difficulty-button"
           >
@@ -75,12 +82,7 @@ export const DifficultySelector = ({
         ))}
       </div>
 
-      {isLoading && (
-        <div className="loading-text">
-          <div className="loading-spinner"></div>
-          <span>Iniciando juego...</span>
-        </div>
-      )}
+      
     </div>
   );
 };

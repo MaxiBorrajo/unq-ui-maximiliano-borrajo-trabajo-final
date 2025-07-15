@@ -48,7 +48,7 @@ export const Game = () => {
     return (
       <div className="game-container">
         <DifficultySelector
-          onDifficultySelect={startNewGame}
+          startNewGame={startNewGame}
           isLoading={gameState.isLoading}
         />
       </div>
@@ -79,9 +79,9 @@ export const Game = () => {
         />
 
         <VirtualKeyboard
-          onKeyPress={addLetter}
-          onBackspace={removeLetter}
-          onEnter={submitAttempt}
+          keyEvent={addLetter}
+          deleteEvent={removeLetter}
+          enterEvent={submitAttempt}
           letterResults={letterResults}
         />
 
@@ -96,7 +96,7 @@ export const Game = () => {
       <GameResult
         gameStatus={gameState.gameStatus}
         attempts={gameState.attempts}
-        onPlayAgain={handlePlayAgain}
+        handlePlayAgain={handlePlayAgain}
       />
     </div>
   );

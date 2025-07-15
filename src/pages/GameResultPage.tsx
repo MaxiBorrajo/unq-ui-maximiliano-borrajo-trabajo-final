@@ -3,13 +3,13 @@ import type { GameStatus } from "../types/game";
 interface GameResultProps {
   gameStatus: GameStatus;
   attempts: string[];
-  onPlayAgain: () => void;
+  handlePlayAgain: () => void;
 }
 
 export const GameResult = ({
   gameStatus,
   attempts,
-  onPlayAgain,
+  handlePlayAgain,
 }: GameResultProps) => {
   const isWon = gameStatus === "won";
   const isLost = gameStatus === "lost";
@@ -46,7 +46,7 @@ export const GameResult = ({
           </div>
         </div>
 
-        <button onClick={onPlayAgain} className="play-again-button">
+        <button onClick={handlePlayAgain} className="play-again-button">
           Jugar de Nuevo
         </button>
       </div>

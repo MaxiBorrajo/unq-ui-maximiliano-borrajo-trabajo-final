@@ -1,16 +1,16 @@
 import type { LetterResult } from "../types/game";
 
 interface VirtualKeyboardProps {
-  onKeyPress: (key: string) => void;
-  onBackspace: () => void;
-  onEnter: () => void;
+  keyEvent: (key: string) => void;
+  deleteEvent: () => void;
+  enterEvent: () => void;
   letterResults: LetterResult[][];
 }
 
 export const VirtualKeyboard = ({
-  onKeyPress,
-  onBackspace,
-  onEnter,
+  keyEvent,
+  deleteEvent,
+  enterEvent,
   letterResults,
 }: VirtualKeyboardProps) => {
   const getKeyStatus = (
@@ -18,7 +18,7 @@ export const VirtualKeyboard = ({
   ): "correct" | "elsewhere" | "absent" | null => {
     const flatResults = letterResults.flat();
     const keyResults = flatResults.filter(
-      (result) => result.letter.toUpperCase() === key.toUpperCase()
+      (result) => result.letter.toLowerCase() === key.toLowerCase()
     );
 
     if (keyResults.length === 0) return null;
@@ -47,7 +47,7 @@ export const VirtualKeyboard = ({
       {keys.map((row, rowIndex) => (
         <div key={rowIndex} className="keyboard-row">
           {rowIndex === 2 && (
-            <button onClick={onEnter} className="keyboard-key enter">
+            <button onClick={enterEvent} className="keyboard-key enter">
               ENTER
             </button>
           )}
@@ -57,7 +57,7 @@ export const VirtualKeyboard = ({
             return (
               <button
                 key={key}
-                onClick={() => onKeyPress(key)}
+                onClick={() => keyEvent(key)}
                 className={`
                   keyboard-key
                   ${status === "correct" ? "correct" : ""}
@@ -71,7 +71,7 @@ export const VirtualKeyboard = ({
           })}
 
           {rowIndex === 2 && (
-            <button onClick={onBackspace} className="keyboard-key backspace">
+            <button onClick={deleteEvent} className="keyboard-key backspace">
               ←
             </button>
           )}

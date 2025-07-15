@@ -1,11 +1,10 @@
+import { API_BASE_URL } from "../constants/constants";
 import type {
   Difficulty,
   GameSession,
   AnswerBody,
   LetterResult,
 } from "../types/game";
-
-const API_BASE_URL = "https://word-api-hmlg.vercel.app";
 
 export class ApiService {
   static async getDifficulties(): Promise<Difficulty[]> {

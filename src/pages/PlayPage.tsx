@@ -48,7 +48,7 @@ const PlayPage = () => {
     return (
       <div className="game-container">
         <DifficultySelector
-          onDifficultySelect={startNewGame}
+          startNewGame={startNewGame}
           isLoading={gameState.isLoading}
         />
       </div>
@@ -71,6 +71,13 @@ const PlayPage = () => {
           <div className="error-message">{gameState.error}</div>
         )}
 
+        {gameState.isLoading && (
+          <div className="loading-text">
+            <div className="loading-spinner"></div>
+            <span>Verificando palabra...</span>
+          </div>
+        )}
+
         <GameBoard
           attempts={gameState.attempts}
           currentAttempt={gameState.currentAttempt}
@@ -79,24 +86,17 @@ const PlayPage = () => {
         />
 
         <VirtualKeyboard
-          onKeyPress={addLetter}
-          onBackspace={removeLetter}
-          onEnter={submitAttempt}
+          keyEvent={addLetter}
+          deleteEvent={removeLetter}
+          enterEvent={submitAttempt}
           letterResults={letterResults}
         />
-
-        {gameState.isLoading && (
-          <div className="loading-text">
-            <div className="loading-spinner"></div>
-            <span>Verificando palabra...</span>
-          </div>
-        )}
       </main>
 
       <GameResult
         gameStatus={gameState.gameStatus}
         attempts={gameState.attempts}
-        onPlayAgain={handlePlayAgain}
+        handlePlayAgain={handlePlayAgain}
       />
     </div>
   );
